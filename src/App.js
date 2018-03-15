@@ -1,25 +1,32 @@
 import React, {Component} from "react"
 import VideoPlayer from "./VideoPlayer"
-import "./App.css"
 
-const videoJsOptions = {
-  autoplay: true,
-  controls: true,
-  sources: [{
-    src: 'rtmp://10.8.0.3/live/test',
-    type: 'rtmp/flv'
-  }]
-}
+import { Container, Header, Input, Divider } from 'semantic-ui-react'
 
 class App extends Component {
+  state = {
+    src: '',
+  }
+
+  onChange = (e, {name, value}) => {
+    this.setState({[name]: value})
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Rtmp Stream Petrovich</h1>
-        </header>
-        <VideoPlayer { ...videoJsOptions } />
-      </div>
+      <Container text style={{paddingTop: 20}}>
+
+        <Header>Petrovich Video Engine</Header>
+        <p>{`Works on Chrome / Yandex Browser / Any other browser with flash`}</p>
+        <Input
+          name="src"
+          label="Source URL"
+          onChange={this.onChange}
+          fluid
+        />
+        <Divider section />
+        <VideoPlayer src={this.state.src} key={this.state.src} />
+      </Container>
     )
   }
 }

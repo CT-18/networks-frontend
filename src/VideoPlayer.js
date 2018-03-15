@@ -1,12 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types'
+
 import videojs from 'video.js'
+require('videojs-flash');
+require('videojs-contrib-hls');
 
 export default class VideoPlayer extends React.Component {
+  static propTypes = {
+    src: PropTypes.string.isRequired,
+  }
+
   componentDidMount() {
     // instantiate Video.js
-    this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
-      console.log('onPlayerReady', this)
-    });
+    this.player = videojs(
+      this.videoNode,
+      {
+        autoplay: true,
+        controls: true,
+        sources: [{
+          src: this.props.src,
+          type: 'rtmp/mp4'
+        }]
+      },
+      () => {
+        console.log('onPlayerReady', this)
+      }
+    );
   }
 
   // destroy player on unmount
@@ -23,7 +42,12 @@ export default class VideoPlayer extends React.Component {
     return (
       <div>
         <div data-vjs-player>
-          <video ref={ node => this.videoNode = node } className="video-js"></video>
+          <video
+            ref={ node => this.videoNode = node }
+            className="video-js"
+            width="600"
+            height="400"
+          ></video>
         </div>
       </div>
     )
