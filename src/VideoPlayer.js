@@ -8,6 +8,7 @@ require('videojs-contrib-hls');
 export default class VideoPlayer extends React.Component {
   static propTypes = {
     src: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
   }
 
   componentDidMount() {
@@ -19,7 +20,7 @@ export default class VideoPlayer extends React.Component {
         controls: true,
         sources: [{
           src: this.props.src,
-          type: 'rtmp/mp4'
+          type: this.props.type,
         }]
       },
       () => {
