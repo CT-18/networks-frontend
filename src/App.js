@@ -42,8 +42,11 @@ class App extends Component {
           </Form.Group>
         </Form>
         <Divider section />
-        <VideoPlayer src={this.state.src} type={this.state.type}
-          key={JSON.stringify(this.state)} />
+        <VideoPlayer
+          src={this.state.src}
+          type={this.state.type}
+          key={JSON.stringify(this.state)}
+        />
       </Container>
     )
   }
