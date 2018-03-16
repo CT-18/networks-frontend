@@ -9,6 +9,8 @@ export default class VideoPlayer extends React.Component {
   static propTypes = {
     src: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    width: PropTypes.number,
+    height: PropTypes.number,
   }
 
   componentDidMount() {
@@ -46,8 +48,8 @@ export default class VideoPlayer extends React.Component {
           <video
             ref={ node => this.videoNode = node }
             className="video-js"
-            width="600"
-            height="400"
+            width={this.props.width}
+            height={this.props.height}
           ></video>
         </div>
       </div>
