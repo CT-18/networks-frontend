@@ -53,27 +53,28 @@ export default class AddVideoDialog extends Component {
       >
         <Modal.Header>Add new video</Modal.Header>
         <Modal.Content>
-          <p>{`Select from existing`}</p>
 
           <DataLoader
             getLoader={() => getStreams()}
           >
-            { knownStreams => (
-              <List selection>
-                {knownStreams.map((stream, key) => (
-                  <List.Item
-                    key={key}
-                    onClick={() => onSubmit({...stream, type: 'application/x-mpegURL'})}
-                    >
-                    <List.Header>{stream.name}</List.Header>
-                    {stream.url}
-                  </List.Item>
-                ))}
-              </List>
+            { knownStreams => knownStreams.length > 0 && (<div>
+                <p>{`Select from existing`}</p>
+                <List selection>
+                  {knownStreams.map((stream, key) => (
+                    <List.Item
+                      key={key}
+                      onClick={() => onSubmit({...stream, type: 'application/x-mpegURL'})}
+                      >
+                      <List.Header>{stream.name}</List.Header>
+                      {stream.url}
+                    </List.Item>
+                  ))}
+                </List>
+                <Divider horizontal>Or</Divider>
+            </div>
             )}
           </DataLoader>
 
-          <Divider horizontal>Or</Divider>
 
           <p>{`Add custom stream`}</p>
           <Form>

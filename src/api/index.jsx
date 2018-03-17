@@ -1,4 +1,45 @@
-export const getStreams = () => Promise.resolve([{
+import axios from 'axios'
+import { getBalancer, getApiURL, setApiURL } from 'state'
+
+const rawGet = endpoint => axios.get(endpoint).then(response => {
+    const data = response.data
+    if (data.error) {
+      return Promise.reject(
+        new Error(data.error)
+      )
+    }
+    return data.result
+  }).catch(e => console.log(e))
+
+export const fetchApiUrl = () => {
+  const balancer = getBalancer()
+  if (balancer) {
+    return rawGet(`${balancer}/balancer/`)
+      .then(api => setApiURL(api.result))
+  } else {
+    return Promise.reject(new Error('No balancer set'))
+  }
+}
+
+const get = endpoint => {
+  const apiUrl = getApiURL()
+  if (apiUrl) {
+    return rawGet(apiUrl + endpoint)
+  } else {
+    return fetchApiUrl().then(() => get(endpoint))
+  }
+}
+
+
+
+export const getStreams = () => get('/streams/')
+  .then(({streams}) => streams.map(({name, fragment}) => ({
+    name,
+    url: `${getApiURL()}/streams/${name}/${fragment}`,
+  })))
+  .catch(e => [])
+
+export const getStreamsFixed = () => Promise.resolve([{
   name: 'Raspberry',
   url: 'http://10.8.0.3/live.m3u8'
 }, {

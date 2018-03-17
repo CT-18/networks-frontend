@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 
-import { Card, Header, Grid, Button, Modal } from 'semantic-ui-react'
+import { Segment, Card, Header, Grid, Button, Modal } from 'semantic-ui-react'
 import VideoCard from './VideoCard'
 import AddVideoDialog from './AddVideoDialog'
 
@@ -18,7 +18,7 @@ export default class VideoList extends Component {
   render() {
     const self = this
     return (
-      <div>
+      <Segment>
         <Grid>
           <Grid.Column floated="left" width={5}>
             <Header>Video Streams</Header>
@@ -41,7 +41,7 @@ export default class VideoList extends Component {
             />
           ))}
         </Card.Group>
-      </div>
+      </Segment>
     )
   }
 }
