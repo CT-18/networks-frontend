@@ -5,13 +5,17 @@ import { Modal, Button, Icon, Form, List, Divider } from 'semantic-ui-react'
 import VideoList from 'components/VideoList'
 import DataLoader from 'components/DataLoader'
 import { getStreams } from 'api'
+import MediaTypes from 'constants/MediaTypes'
 
 const MEDIA_TYPES = [{
   text: 'RTMP',
-  value: 'rtmp/mp4',
+  value: MediaTypes.RTMP,
 }, {
   text: 'HLS',
-  value: 'application/x-mpegURL',
+  value: MediaTypes.HLS,
+}, {
+  text: 'RTSP',
+  value: MediaTypes.RTSP,
 }]
 
 export default class AddVideoDialog extends Component {

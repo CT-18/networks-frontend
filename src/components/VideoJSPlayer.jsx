@@ -5,7 +5,7 @@ import videojs from 'video.js'
 require('videojs-flash');
 require('videojs-contrib-hls');
 
-export default class VideoPlayer extends React.Component {
+export default class VideoJSPlayer extends React.Component {
   static propTypes = {
     src: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
